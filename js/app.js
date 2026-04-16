@@ -1,4 +1,10 @@
-import { addUser, updateUser, deleteUser, subscribeToUsers } from "./db.js";
+import {
+  addUser,
+  updateUser,
+  deleteUser,
+  subscribeToUsers,
+  checkUniqueness,
+} from "./db.js";
 import {
   renderUsers,
   fillForm,
@@ -16,6 +22,13 @@ elements.form.addEventListener("submit", async (e) => {
   const { id, ...userData } = formData;
 
   try {
+    // Check for duplicates
+    const conflict = await checkUniqueness(userData.email, userData.mobile, id);
+    if (conflict) {
+      showAlert(conflict.message, "error");
+      return;
+    }
+
     if (id) {
       // Update existing user
       await updateUser(id, userData);

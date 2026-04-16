@@ -10,6 +10,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import firebaseConfig from "./config.js";
 
@@ -79,4 +80,35 @@ export const subscribeToUsers = (callback, onError) => {
       if (onError) onError(error);
     },
   );
+};
+
+/**
+ * Check if email or mobile already exists
+ */
+export const checkUniqueness = async (email, mobile, excludeId = null) => {
+  try {
+    // Check Email
+    const emailQ = query(usersCol, where("email", "==", email));
+    const emailSnap = await getDocs(emailQ);
+    const emailConflict = emailSnap.docs.find((doc) => doc.id !== excludeId);
+
+    if (emailConflict)
+      return { field: "email", message: "This email is already registered." };
+
+    // Check Mobile
+    const mobileQ = query(usersCol, where("mobile", "==", mobile));
+    const mobileSnap = await getDocs(mobileQ);
+    const mobileConflict = mobileSnap.docs.find((doc) => doc.id !== excludeId);
+
+    if (mobileConflict)
+      return {
+        field: "mobile",
+        message: "This mobile number is already registered.",
+      };
+
+    return null;
+  } catch (error) {
+    console.error("Uniqueness check error:", error);
+    return null;
+  }
 };
