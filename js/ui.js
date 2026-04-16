@@ -30,9 +30,10 @@ export const renderUsers = (users, onEdit, onDelete) => {
 
   elements.noData.classList.add("hidden");
 
-  users.forEach((user) => {
+  users.forEach((user, index) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
+            <td>${index + 1}</td>
             <td>${user.name}</td>
             <td>${user.email}</td>
             <td>${user.mobile}</td>

@@ -1,11 +1,11 @@
 :root {
   --primary-color: #6366f1;
   --primary-hover: #4f46e5;
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
   --accent-red: #ef4444;
   --accent-green: #10b981;
 }
@@ -36,18 +36,26 @@ body {
   height: 100%;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(99, 102, 241, 0.15) 0%,
-    transparent 50%
+    rgba(99, 101, 241, 0.1) 0%,
+    transparent 70%
   );
   z-index: -1;
 }
 
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1400px; /* Increased for split layout */
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  height: calc(100vh - 4rem); /* Full height container */
+}
+
+.main-content {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  min-height: 0; /* Important for children overflow */
 }
 
 header {
@@ -96,9 +104,16 @@ h2::after {
 }
 
 /* Form Styles */
+.form-section {
+  flex: 0 0 30%;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+}
+
 #registration-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 1fr; /* Stack inputs in the sidebar */
   gap: 1.5rem;
 }
 
@@ -115,11 +130,11 @@ h2::after {
 }
 
 input {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 0.8rem 1rem;
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -156,8 +171,8 @@ input:focus {
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
   border: 1px solid var(--glass-border);
   padding: 0.8rem 2rem;
   border-radius: 12px;
@@ -167,12 +182,41 @@ input:focus {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.list-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 /* Table Styles */
 .table-container {
-  overflow-x: auto;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom Scrollbar for premium feel */
+.table-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }
 
 table {
@@ -184,19 +228,32 @@ table {
 th {
   text-align: left;
   padding: 1rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-weight: 600;
-  border-bottom: 1px solid var(--glass-border);
+  background: rgba(99, 102, 241, 0.08);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+th:first-child {
+  border-top-left-radius: 12px;
+}
+
+th:last-child {
+  border-top-right-radius: 12px;
 }
 
 td {
   padding: 1.2rem 1rem;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transition: background 0.3s ease;
 }
 
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.015);
+}
+
 tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .action-btns {
@@ -266,11 +323,26 @@ tr:hover td {
   }
 }
 
-@media (max-width: 640px) {
-  #registration-form {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
   }
 
+  .form-section {
+    flex: none;
+    position: static;
+  }
+
+  .container {
+    height: auto;
+  }
+
+  .list-section {
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
   .glass {
     padding: 1.5rem;
   }

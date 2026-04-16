@@ -24,68 +24,75 @@
         <p>Manage your community with elegance and efficiency.</p>
       </header>
 
-      <section class="form-section glass">
-        <h2 id="form-title">Register New Member</h2>
-        <form id="registration-form">
-          <input type="hidden" id="user-id" />
-          <div class="input-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="John Doe" required />
-          </div>
-          <div class="input-group">
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="john@example.com"
-              required
-            />
-          </div>
-          <div class="input-group">
-            <label for="mobile">Mobile Number</label>
-            <input
-              type="tel"
-              id="mobile"
-              placeholder="1234567890"
-              pattern="[0-9]{10}"
-              required
-              title="Please enter a 10-digit mobile number"
-            />
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="submit-btn" class="btn-primary">
-              Register Member
-            </button>
-            <button type="button" id="cancel-btn" class="btn-secondary hidden">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </section>
+      <main class="main-content">
+        <section class="form-section glass">
+          <h2 id="form-title">Register New Member</h2>
+          <form id="registration-form">
+            <input type="hidden" id="user-id" />
+            <div class="input-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="John Doe" required />
+            </div>
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="john@example.com"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <label for="mobile">Mobile Number</label>
+              <input
+                type="tel"
+                id="mobile"
+                placeholder="1234567890"
+                pattern="[0-9]{10}"
+                required
+                title="Please enter a 10-digit mobile number"
+              />
+            </div>
+            <div class="form-actions">
+              <button type="submit" id="submit-btn" class="btn-primary">
+                Register Member
+              </button>
+              <button
+                type="button"
+                id="cancel-btn"
+                class="btn-secondary hidden"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
 
-      <section class="list-section glass">
-        <h2>Registered Members</h2>
-        <div class="table-container">
-          <table id="users-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="users-list">
-              <!-- Data will be injected here -->
-            </tbody>
-          </table>
-        </div>
-        <div id="no-data" class="hidden">No members registered yet.</div>
-        <div id="loader" class="loader">
-          <div class="spinner"></div>
-          <span>Loading Data...</span>
-        </div>
-      </section>
+        <section class="list-section glass">
+          <h2>Registered Members</h2>
+          <div class="table-container">
+            <table id="users-table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-list">
+                <!-- Data will be injected here -->
+              </tbody>
+            </table>
+          </div>
+          <div id="no-data" class="hidden">No members registered yet.</div>
+          <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <span>Loading Data...</span>
+          </div>
+        </section>
+      </main>
     </div>
 
     <!-- Firebase SDKs -->
